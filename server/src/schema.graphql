@@ -1,5 +1,28 @@
+# import Meetup from "./generated/prisma.graphql"
+
+type Query {
+  meetups: [Meetup!]!
+  meetup(id: ID!): Meetup!
+  me: User!
+}
+
+type Mutation {
+  createMeetup(
+    title: String!
+    description: String!
+    date: DateTime!
+    location: String!
+  ): Meetup!
+  attending(id: ID!): Meetup!
+  notAttending(id: ID!): Meetup!
+  signup(email: String!, password: String!, name: String!): User!
+  login(email: String!, password: String!): User!
+}
+
 type User {
   id: ID!
   name: String!
   email: String!
+  myMeetups: [Meetup!]!
+  meetupsAttending: [Meetup!]!
 }
