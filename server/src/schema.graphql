@@ -3,7 +3,7 @@
 type Query {
   meetups: [Meetup!]!
   meetup(id: ID!): Meetup!
-  me: User!
+  me: User
 }
 
 type Mutation {
