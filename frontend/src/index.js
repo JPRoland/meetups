@@ -16,7 +16,8 @@ import SingleMeetup from "./SingleMeetup";
 import * as serviceWorker from "./serviceWorker";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000"
+  uri: "http://localhost:4000",
+  credentials: "include"
 });
 
 const client = new ApolloClient({

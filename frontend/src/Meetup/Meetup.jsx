@@ -5,8 +5,8 @@ import placeholder from "./placeholder.jpg";
 
 export default props => {
   return (
-    <Link to={`/meetup/${props.id}`} style={{ textDecoration: "none" }}>
-      <div className="bg-white mw5 ba b--black-10 mv4 mh2">
+    <div className="bg-white mw5 ba b--black-10 mv4 mh2">
+      <Link to={`/meetup/${props.id}`} style={{ textDecoration: "none" }}>
         <div className="pv2 ph3">
           <h1 className="f5 tl black">
             {moment(props.date).format("MMMM Do YYYY")}
@@ -25,7 +25,7 @@ export default props => {
             </small>
           )}
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };

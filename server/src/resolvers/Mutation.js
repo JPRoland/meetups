@@ -49,6 +49,10 @@ const Mutations = {
 
     return user;
   },
+  signout(parent, args, ctx, info) {
+    ctx.response.clearCookie('token');
+    return {message: "You are now logged out"};
+  },
   async createMeetup(parent, args, ctx, info) {
     if (!ctx.request.userId) {
       throw new Error("You must be logged in to do that.");
