@@ -4,15 +4,13 @@ import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.min.css";
 
 import "./index.css";
 import App from "./App";
-import Signup from "./Signup";
-import Login from "./Login";
-import Nav from "./Common/Nav";
-import CreateMeetup from "./CreateMeetup";
-import SingleMeetup from "./SingleMeetup";
+
 import * as serviceWorker from "./serviceWorker";
 
 const httpLink = createHttpLink({
@@ -27,18 +25,8 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Router>
-      <div>
-        <Nav />
-        <Switch>
-          <Route exact path="/" component={App} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route path="/newMeetup" component={CreateMeetup} />
-          <Route path="/meetup/:id" component={SingleMeetup} />
-        </Switch>
-      </div>
-    </Router>
+    <ToastContainer />
+    <App />
   </ApolloProvider>,
   document.getElementById("root")
 );

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import { toast } from "react-toastify";
 
 import { CURRENT_USER_QUERY } from "../graphql/User";
 
@@ -37,7 +38,11 @@ export default class Login extends Component {
               onSubmit={async e => {
                 e.preventDefault();
                 await login();
+                toast.success("Logged in Successfully!", {
+                  position: "bottom-right"
+                });
                 this.setState({ email: "", password: "" });
+                this.props.history.push("/");
               }}
             >
               <fieldset
