@@ -17,7 +17,7 @@ export default props => {
         <div className="pa3">
           <h1 className="f6 tl black">{props.title}</h1>
           <small className="gray db pv2 tl">
-            Hosted by: <span className="ttu">{props.organizer}</span>
+            Hosted by: <span className="ttu">{props.organizer.name}</span>
           </small>
           {props.attendees && (
             <small className="gray db tl">
