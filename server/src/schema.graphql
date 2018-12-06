@@ -2,7 +2,7 @@
 
 type Query {
   meetups: [Meetup!]!
-  meetup(id: ID!): Meetup!
+  meetup(where: MeetupWhereUniqueInput!): Meetup!
   me: User
 }
 
