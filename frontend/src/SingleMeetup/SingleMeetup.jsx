@@ -4,6 +4,7 @@ import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import moment from "moment";
 import User from "../graphql/User";
+import AttendeeList from "./AttendeeList";
 
 const MEETUP_QUERY = gql`
   query MEETUP_QUERY($id: ID!) {
@@ -125,11 +126,7 @@ export default class SingleMeetup extends Component {
                       {data.meetup.attendees.some(x => {
                         return x.name === user.data.me.name;
                       }) ? (
-                        <Mutation
-                          mutation={NOT_ATTENDING_MUTATION}
-                          variables={{ id: this.props.match.params.id }}
-                          refetchQueries={[{ query: MEETUP_QUERY }]}
-                        >
+                        <Mutation mutation={NOT_ATTENDING_MUTATION}>
                           {(notAttending, { loading, error }) => {
                             if (loading) return <p>Loading...</p>;
 
@@ -149,11 +146,7 @@ export default class SingleMeetup extends Component {
                           }}
                         </Mutation>
                       ) : (
-                        <Mutation
-                          mutation={ATTENDING_MUTATION}
-                          variables={{ id: this.props.match.params.id }}
-                          refetchQueries={[{ query: MEETUP_QUERY }]}
-                        >
+                        <Mutation mutation={ATTENDING_MUTATION}>
                           {(attending, { loading, error }) => {
                             if (loading) return <p>Loading...</p>;
 
@@ -179,33 +172,7 @@ export default class SingleMeetup extends Component {
                       Attendees(
                       {data.meetup.attendees.length})
                     </h2>
-                    <div className="mw6">
-                      {data.meetup.attendees.length > 0 &&
-                        data.meetup.attendees.map(attendee => {
-                          const [firstName, lastName] = attendee.name.split(
-                            " "
-                          );
-                          return (
-                            <div
-                              className="dt w-100 bb b--black-05 pb2 mt2"
-                              key={attendee.id}
-                            >
-                              <div className="dtc w2 w3-ns v-mid">
-                                <img
-                                  className="ba b--black-10 db br2 w2 w3-ns h2 h3-ns"
-                                  src="http://i.pravatar.cc/100"
-                                  alt={attendee.name}
-                                />
-                              </div>
-                              <div className="dtc v-mid pl3">
-                                <h1 className="f6 f5-ns fw6 lh-title black mv0">
-                                  {firstName} {lastName[0]}.
-                                </h1>
-                              </div>
-                            </div>
-                          );
-                        })}
-                    </div>
+                    <AttendeeList attendees={data.meetup.attendees} />
                   </div>
                 </section>
               );
