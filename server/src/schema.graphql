@@ -1,7 +1,12 @@
 # import Meetup from "./generated/prisma.graphql"
 
 type Query {
-  meetups: [Meetup]!
+  meetups(
+    where: MeetupWhereInput
+    orderBy: MeetupOrderByInput
+    skip: Int
+    first: Int
+  ): [Meetup]!
   meetup(where: MeetupWhereUniqueInput!): Meetup!
   me: User
 }

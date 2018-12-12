@@ -21,7 +21,7 @@ export default props => {
           </small>
           {props.attendees && (
             <small className="gray db tl">
-              {props.attendees.length} attendees
+              {props.attendees.length} attendee{props.attendees.length > 1 ? 's' : null}
             </small>
           )}
         </div>

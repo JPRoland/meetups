@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import User from "../../graphql/User";
+import Search from "./Search";
 
 import Signout from "../Signout";
 
@@ -24,30 +25,33 @@ export default () => {
             </svg>
             <span className="ml2 f4">Meetups</span>
           </Link>
-          {me && (
-            <div className="flex-grow pa3 flex items-center">
-              <Link
-                to="/newMeetup"
-                className="f6 link dib white dim mr3 mr4-ns"
-              >
-                Create a Meetup
-              </Link>
-              <Signout />
-            </div>
-          )}
-          {!me && (
-            <div className="flex-grow pa3 flex items-center">
-              <Link to="/login" className="f6 link dib white dim mr3 mr4-ns">
-                Sign In
-              </Link>
-              <Link
-                className="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"
-                to="/signup"
-              >
-                Sign Up
-              </Link>
-            </div>
-          )}
+          <div className="flex-grow pa3 flex items-center">
+            <Search />
+            {me && (
+              <div>
+                <Link
+                  to="/newMeetup"
+                  className="f6 link dib white dim mr3 mr4-ns"
+                >
+                  Create a Meetup
+                </Link>
+                <Signout />
+              </div>
+            )}
+            {!me && (
+              <div>
+                <Link to="/login" className="f6 link dib white dim mr3 mr4-ns">
+                  Sign In
+                </Link>
+                <Link
+                  className="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"
+                  to="/signup"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
+          </div>
         </nav>
       )}
     </User>
