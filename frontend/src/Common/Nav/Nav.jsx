@@ -5,7 +5,7 @@ import Search from "./Search";
 
 import Signout from "../Signout";
 
-export default () => {
+export default props => {
   return (
     <User>
       {({ data: { me } }) => (

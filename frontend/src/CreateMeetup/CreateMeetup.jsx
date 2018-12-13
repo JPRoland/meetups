@@ -3,8 +3,6 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import DateTimePicker from "react-datetime-picker";
 
-import { CURRENT_USER_QUERY } from "../graphql/User";
-
 const CREATE_MEETUP_MUTATION = gql`
   mutation CREATE_MEETUP_MUTATION(
     $title: String!
@@ -19,16 +17,6 @@ const CREATE_MEETUP_MUTATION = gql`
       date: $date
     ) {
       id
-      title
-      description
-      date
-      location
-      organizer {
-        name
-      }
-      attendees {
-        id
-      }
     }
   }
 `;
@@ -49,20 +37,16 @@ export default class CreateMeetup extends Component {
 
   render() {
     return (
-      <Mutation
-        mutation={CREATE_MEETUP_MUTATION}
-        variables={this.state}
-        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-      >
+      <Mutation mutation={CREATE_MEETUP_MUTATION} variables={this.state}>
         {(createMeetup, { error, loading }) => (
           <article className="pa4 black-80">
             <form
               method="post"
               onSubmit={async e => {
                 e.preventDefault();
-                const meetup = await createMeetup();
+                const res = await createMeetup();
                 this.setState({ name: "", email: "", password: "" });
-                this.props.history.push(`/meetup/${meetup.data.id}`);
+                this.props.history.push(`/meetup/${res.data.createMeetup.id}`);
               }}
             >
               <fieldset
@@ -90,7 +74,7 @@ export default class CreateMeetup extends Component {
                   <textarea
                     name="description"
                     placeholder="Description..."
-                    className="db border-box hover-black w-100 measure ba b--black-20 pa2 br2 mb2"
+                    className="db border-box hover-black w-100 measure ba pa2 br2 mb2"
                     value={this.state.description}
                     onChange={this.saveToState}
                   />
