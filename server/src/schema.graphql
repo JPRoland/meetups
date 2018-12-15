@@ -21,6 +21,15 @@ type Mutation {
     description: String!
     date: DateTime!
     location: String!
+    photo: String
+  ): Meetup!
+  updateMeetup(
+    id: ID!
+    title: String
+    description: String
+    date: DateTime
+    location: String
+    photo: String
   ): Meetup!
   attending(id: ID!): Meetup!
   notAttending(id: ID!): Meetup!
@@ -33,6 +42,7 @@ type User {
   id: ID!
   name: String!
   email: String!
+  avatar: String
   myMeetups: [Meetup!]!
   meetupsAttending: [Meetup!]!
 }

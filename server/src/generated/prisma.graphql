@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/joe-roland-3d2b35/meetups-server/dev
-# timestamp: Mon Nov 19 2018 23:31:00 GMT-0500 (STD)
+# timestamp: Sat Dec 15 2018 15:43:21 GMT-0500 (STD)
 
 type AggregateMeetup {
   count: Int!
@@ -24,6 +24,7 @@ scalar Long
 
 type Meetup implements Node {
   id: ID!
+  photo: String
   organizer: User!
   title: String!
   description: String!
@@ -43,6 +44,7 @@ type MeetupConnection {
 }
 
 input MeetupCreateInput {
+  photo: String
   title: String!
   description: String!
   location: String!
@@ -62,6 +64,7 @@ input MeetupCreateManyWithoutOrganizerInput {
 }
 
 input MeetupCreateWithoutAttendeesInput {
+  photo: String
   title: String!
   description: String!
   location: String!
@@ -70,6 +73,7 @@ input MeetupCreateWithoutAttendeesInput {
 }
 
 input MeetupCreateWithoutOrganizerInput {
+  photo: String
   title: String!
   description: String!
   location: String!
@@ -89,6 +93,8 @@ type MeetupEdge {
 enum MeetupOrderByInput {
   id_ASC
   id_DESC
+  photo_ASC
+  photo_DESC
   title_ASC
   title_DESC
   description_ASC
@@ -105,6 +111,7 @@ enum MeetupOrderByInput {
 
 type MeetupPreviousValues {
   id: ID!
+  photo: String
   title: String!
   description: String!
   location: String!
@@ -160,6 +167,46 @@ input MeetupScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  photo: String
+
+  """All values that are not equal to given value."""
+  photo_not: String
+
+  """All values that are contained in given list."""
+  photo_in: [String!]
+
+  """All values that are not contained in given list."""
+  photo_not_in: [String!]
+
+  """All values less than the given value."""
+  photo_lt: String
+
+  """All values less than or equal the given value."""
+  photo_lte: String
+
+  """All values greater than the given value."""
+  photo_gt: String
+
+  """All values greater than or equal the given value."""
+  photo_gte: String
+
+  """All values containing the given string."""
+  photo_contains: String
+
+  """All values not containing the given string."""
+  photo_not_contains: String
+
+  """All values starting with the given string."""
+  photo_starts_with: String
+
+  """All values not starting with the given string."""
+  photo_not_starts_with: String
+
+  """All values ending with the given string."""
+  photo_ends_with: String
+
+  """All values not ending with the given string."""
+  photo_not_ends_with: String
   title: String
 
   """All values that are not equal to given value."""
@@ -344,6 +391,7 @@ input MeetupSubscriptionWhereInput {
 }
 
 input MeetupUpdateInput {
+  photo: String
   title: String
   description: String
   location: String
@@ -353,6 +401,7 @@ input MeetupUpdateInput {
 }
 
 input MeetupUpdateManyDataInput {
+  photo: String
   title: String
   description: String
   location: String
@@ -360,6 +409,7 @@ input MeetupUpdateManyDataInput {
 }
 
 input MeetupUpdateManyMutationInput {
+  photo: String
   title: String
   description: String
   location: String
@@ -394,6 +444,7 @@ input MeetupUpdateManyWithWhereNestedInput {
 }
 
 input MeetupUpdateWithoutAttendeesDataInput {
+  photo: String
   title: String
   description: String
   location: String
@@ -402,6 +453,7 @@ input MeetupUpdateWithoutAttendeesDataInput {
 }
 
 input MeetupUpdateWithoutOrganizerDataInput {
+  photo: String
   title: String
   description: String
   location: String
@@ -480,6 +532,46 @@ input MeetupWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  photo: String
+
+  """All values that are not equal to given value."""
+  photo_not: String
+
+  """All values that are contained in given list."""
+  photo_in: [String!]
+
+  """All values that are not contained in given list."""
+  photo_not_in: [String!]
+
+  """All values less than the given value."""
+  photo_lt: String
+
+  """All values less than or equal the given value."""
+  photo_lte: String
+
+  """All values greater than the given value."""
+  photo_gt: String
+
+  """All values greater than or equal the given value."""
+  photo_gte: String
+
+  """All values containing the given string."""
+  photo_contains: String
+
+  """All values not containing the given string."""
+  photo_not_contains: String
+
+  """All values starting with the given string."""
+  photo_starts_with: String
+
+  """All values not starting with the given string."""
+  photo_not_starts_with: String
+
+  """All values ending with the given string."""
+  photo_ends_with: String
+
+  """All values not ending with the given string."""
+  photo_not_ends_with: String
   title: String
 
   """All values that are not equal to given value."""
@@ -699,6 +791,7 @@ type User implements Node {
   name: String!
   email: String!
   password: String!
+  avatar: String
   myMeetups(where: MeetupWhereInput, orderBy: MeetupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meetup!]
   meetupsAttending(where: MeetupWhereInput, orderBy: MeetupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meetup!]
 }
@@ -717,6 +810,7 @@ input UserCreateInput {
   name: String!
   email: String!
   password: String!
+  avatar: String
   myMeetups: MeetupCreateManyWithoutOrganizerInput
   meetupsAttending: MeetupCreateManyWithoutAttendeesInput
 }
@@ -735,6 +829,7 @@ input UserCreateWithoutMeetupsAttendingInput {
   name: String!
   email: String!
   password: String!
+  avatar: String
   myMeetups: MeetupCreateManyWithoutOrganizerInput
 }
 
@@ -742,6 +837,7 @@ input UserCreateWithoutMyMeetupsInput {
   name: String!
   email: String!
   password: String!
+  avatar: String
   meetupsAttending: MeetupCreateManyWithoutAttendeesInput
 }
 
@@ -763,6 +859,8 @@ enum UserOrderByInput {
   email_DESC
   password_ASC
   password_DESC
+  avatar_ASC
+  avatar_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -774,6 +872,7 @@ type UserPreviousValues {
   name: String!
   email: String!
   password: String!
+  avatar: String
 }
 
 input UserScalarWhereInput {
@@ -945,6 +1044,46 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   password_not_ends_with: String
+  avatar: String
+
+  """All values that are not equal to given value."""
+  avatar_not: String
+
+  """All values that are contained in given list."""
+  avatar_in: [String!]
+
+  """All values that are not contained in given list."""
+  avatar_not_in: [String!]
+
+  """All values less than the given value."""
+  avatar_lt: String
+
+  """All values less than or equal the given value."""
+  avatar_lte: String
+
+  """All values greater than the given value."""
+  avatar_gt: String
+
+  """All values greater than or equal the given value."""
+  avatar_gte: String
+
+  """All values containing the given string."""
+  avatar_contains: String
+
+  """All values not containing the given string."""
+  avatar_not_contains: String
+
+  """All values starting with the given string."""
+  avatar_starts_with: String
+
+  """All values not starting with the given string."""
+  avatar_not_starts_with: String
+
+  """All values ending with the given string."""
+  avatar_ends_with: String
+
+  """All values not ending with the given string."""
+  avatar_not_ends_with: String
 }
 
 type UserSubscriptionPayload {
@@ -990,6 +1129,7 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
+  avatar: String
   myMeetups: MeetupUpdateManyWithoutOrganizerInput
   meetupsAttending: MeetupUpdateManyWithoutAttendeesInput
 }
@@ -998,12 +1138,14 @@ input UserUpdateManyDataInput {
   name: String
   email: String
   password: String
+  avatar: String
 }
 
 input UserUpdateManyMutationInput {
   name: String
   email: String
   password: String
+  avatar: String
 }
 
 input UserUpdateManyWithoutMeetupsAttendingInput {
@@ -1033,6 +1175,7 @@ input UserUpdateWithoutMeetupsAttendingDataInput {
   name: String
   email: String
   password: String
+  avatar: String
   myMeetups: MeetupUpdateManyWithoutOrganizerInput
 }
 
@@ -1040,6 +1183,7 @@ input UserUpdateWithoutMyMeetupsDataInput {
   name: String
   email: String
   password: String
+  avatar: String
   meetupsAttending: MeetupUpdateManyWithoutAttendeesInput
 }
 
@@ -1228,6 +1372,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   password_not_ends_with: String
+  avatar: String
+
+  """All values that are not equal to given value."""
+  avatar_not: String
+
+  """All values that are contained in given list."""
+  avatar_in: [String!]
+
+  """All values that are not contained in given list."""
+  avatar_not_in: [String!]
+
+  """All values less than the given value."""
+  avatar_lt: String
+
+  """All values less than or equal the given value."""
+  avatar_lte: String
+
+  """All values greater than the given value."""
+  avatar_gt: String
+
+  """All values greater than or equal the given value."""
+  avatar_gte: String
+
+  """All values containing the given string."""
+  avatar_contains: String
+
+  """All values not containing the given string."""
+  avatar_not_contains: String
+
+  """All values starting with the given string."""
+  avatar_starts_with: String
+
+  """All values not starting with the given string."""
+  avatar_not_starts_with: String
+
+  """All values ending with the given string."""
+  avatar_ends_with: String
+
+  """All values not ending with the given string."""
+  avatar_not_ends_with: String
   myMeetups_every: MeetupWhereInput
   myMeetups_some: MeetupWhereInput
   myMeetups_none: MeetupWhereInput

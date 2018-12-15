@@ -74,6 +74,24 @@ const Mutations = {
 
     return meetup;
   },
+  async updateMeetup(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error("You must be logged in to do that.");
+    }
+
+    const updates = {...args};
+    delete updates.id;
+
+    return ctx.db.mutation.updateMeetup(
+      {
+        data: updates,
+        where: {
+          id: args.id
+        }
+      },
+      info
+    );
+  },
   async attending(parent, args, ctx, info) {
     if (!ctx.request.userId) {
       throw new Error("You must be logged in to do that.");

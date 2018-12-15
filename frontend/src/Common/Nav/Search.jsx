@@ -25,8 +25,8 @@ const MEETUP_SEARCH_QUERY = gql`
 `;
 
 const dropDownClasses = {
-  highlighted: "bb bg-white pa2 flex items-center",
-  normal: "bb bg-near-white pa2 flex items-center"
+  highlighted: "bb bg-white bg-animate pa2 flex items-center",
+  normal: "bb bg-near-white bg-animate pa2 flex items-center"
 };
 
 class Search extends Component {
@@ -56,7 +56,7 @@ class Search extends Component {
   render() {
     resetIdCounter();
     return (
-      <div>
+      <div className="relative">
         <Downshift
           onChange={this.routeToMeetup}
           itemToString={item => (item === null ? "" : item.title)}
@@ -68,7 +68,7 @@ class Search extends Component {
             inputValue,
             highlightedIndex
           }) => (
-            <div className="relative">
+            <div>
               <ApolloConsumer>
                 {client => (
                   <input
@@ -86,7 +86,7 @@ class Search extends Component {
                 )}
               </ApolloConsumer>
               {isOpen && (
-                <div className="z-1 abosolute">
+                <div className="menu list absolute-m absolute-l">
                   {this.state.meetups.map((meetup, i) => (
                     <div
                       {...getItemProps({
