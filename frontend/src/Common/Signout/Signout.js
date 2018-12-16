@@ -3,7 +3,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { CURRENT_USER_QUERY } from "../../graphql/User";
+import { CURRENT_USER_QUERY } from "../User";
 
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {

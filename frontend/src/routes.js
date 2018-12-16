@@ -5,11 +5,11 @@ import Signup from "./Signup";
 import Login from "./Login";
 import CreateMeetup from "./CreateMeetup";
 import SingleMeetup from "./SingleMeetup";
-import MeetupsList from "./MeetupsList";
+import MeetupListContainer from "./MeetupListContainer";
 
 export default (
   <Switch>
-    <Route exact path="/" component={MeetupsList} />
+    <Route exact path="/" component={MeetupListContainer} />
     <Route path="/signup" component={Signup} />
     <Route path="/login" component={Login} />
     <Route path="/newMeetup" component={CreateMeetup} />

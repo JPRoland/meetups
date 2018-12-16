@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import User from "../../graphql/User";
+import User from "../User";
 import Search from "./Search";
 
 import Signout from "../Signout";

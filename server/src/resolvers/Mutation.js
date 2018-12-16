@@ -27,6 +27,23 @@ const Mutations = {
 
     return user;
   },
+  async updateUserAvatar(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error("You must be logged in to do that.");
+    }
+
+    return ctx.db.mutation.updateUser(
+      {
+        data: {
+          avatar: args.avatar
+        },
+        where: {
+          id: args.id
+        }
+      },
+      info
+    );
+  },
   async login(parent, args, ctx, info) {
     args.email = args.email.toLowerCase();
 
@@ -50,8 +67,8 @@ const Mutations = {
     return user;
   },
   signout(parent, args, ctx, info) {
-    ctx.response.clearCookie('token');
-    return {message: "You are now logged out"};
+    ctx.response.clearCookie("token");
+    return { message: "You are now logged out" };
   },
   async createMeetup(parent, args, ctx, info) {
     if (!ctx.request.userId) {
@@ -79,7 +96,7 @@ const Mutations = {
       throw new Error("You must be logged in to do that.");
     }
 
-    const updates = {...args};
+    const updates = { ...args };
     delete updates.id;
 
     return ctx.db.mutation.updateMeetup(

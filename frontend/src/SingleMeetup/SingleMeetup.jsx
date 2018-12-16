@@ -3,7 +3,7 @@ import { adopt } from "react-adopt";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import moment from "moment";
-import User from "../graphql/User";
+import User from "../Common/User";
 import AttendeeList from "./AttendeeList";
 
 const MEETUP_QUERY = gql`

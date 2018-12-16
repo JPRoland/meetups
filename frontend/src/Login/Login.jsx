@@ -3,7 +3,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { toast } from "react-toastify";
 
-import { CURRENT_USER_QUERY } from "../graphql/User";
+import { CURRENT_USER_QUERY } from "../Common/User";
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {

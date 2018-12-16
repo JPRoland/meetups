@@ -5,7 +5,7 @@ import placeholder from "./placeholder.jpg";
 
 export default props => {
   return (
-    <div className="bg-white mw5 ba b--black-10 mv4 mh2">
+    <div className="bg-white mw5 ba b--black-10 mv3 mh2">
       <Link to={`/meetup/${props.id}`} style={{ textDecoration: "none" }}>
         <div className="pv2 ph3">
           <h1 className="f5 tl black">
@@ -21,7 +21,8 @@ export default props => {
           </small>
           {props.attendees && (
             <small className="gray db tl">
-              {props.attendees.length} attendee{props.attendees.length > 1 ? 's' : null}
+              {props.attendees.length} attendee
+              {props.attendees.length === 1 ? null : "s"}
             </small>
           )}
         </div>
