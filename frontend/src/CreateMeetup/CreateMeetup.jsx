@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import DateTimePicker from "react-datetime-picker";
+import { DatetimePickerTrigger } from "rc-datetime-picker";
+import moment from "moment";
 
 const CREATE_MEETUP_MUTATION = gql`
   mutation CREATE_MEETUP_MUTATION(
@@ -26,7 +27,7 @@ export default class CreateMeetup extends Component {
     title: "",
     description: "",
     location: "",
-    date: new Date()
+    date: moment()
   };
 
   saveToState = e => {
@@ -97,12 +98,18 @@ export default class CreateMeetup extends Component {
                   <label htmlFor="date" className="db fw4 lh-copy f6">
                     Date
                   </label>
-                  <DateTimePicker
+                  <DatetimePickerTrigger
                     name="date"
                     className="w-100"
-                    value={this.state.date}
+                    moment={this.state.date}
                     onChange={this.handleDatePick}
-                  />
+                  >
+                    <input
+                      type="text"
+                      value={this.state.date.format("YYYY-MM-DD HH:mm")}
+                      readOnly
+                    />
+                  </DatetimePickerTrigger>
                 </div>
 
                 <div className="mt3">

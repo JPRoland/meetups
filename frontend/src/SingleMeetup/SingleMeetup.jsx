@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { adopt } from "react-adopt";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import User from "../Common/User";
 import AttendeeList from "./AttendeeList";
@@ -15,6 +16,7 @@ const MEETUP_QUERY = gql`
       location
       date
       organizer {
+        id
         name
       }
       attendees {
@@ -34,6 +36,7 @@ const ATTENDING_MUTATION = gql`
       location
       date
       organizer {
+        id
         name
       }
       attendees {
@@ -53,6 +56,7 @@ const NOT_ATTENDING_MUTATION = gql`
       location
       date
       organizer {
+        id
         name
       }
       attendees {
@@ -108,7 +112,16 @@ export default class SingleMeetup extends Component {
 
                   <hr />
                   <div>
-                    <h2>Details</h2>
+                    <div>
+                      <h2>Details</h2>
+                      {user.data.me &&
+                      user.data.me.id === data.meetup.organizer.id ? (
+                        <Link to={`/meetup/${this.props.match.params.id}/edit`}>
+                          Edit Meetup
+                        </Link>
+                      ) : null}
+                    </div>
+
                     <p>{data.meetup.description}</p>
                   </div>
 
@@ -124,7 +137,7 @@ export default class SingleMeetup extends Component {
                     <h2>Are you going?</h2>
                     <div>
                       {data.meetup.attendees.some(x => {
-                        return x.name === user.data.me.name;
+                        return user.data.me && x.name === user.data.me.name;
                       }) ? (
                         <Mutation mutation={NOT_ATTENDING_MUTATION}>
                           {(notAttending, { loading, error }) => {
