@@ -14,6 +14,7 @@ const MY_MEETUPS_QUERY = gql`
         location
         date
         organizer {
+          id
           name
         }
         attendees {

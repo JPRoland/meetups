@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
-import { DatetimePickerTrigger } from "rc-datetime-picker";
+import DateTime from "react-datetime";
 import moment from "moment";
+
+import "react-datetime/css/react-datetime.css";
 
 const MEETUP_QUERY = gql`
   query MEETUP_QUERY($id: ID!) {
@@ -18,12 +20,14 @@ const MEETUP_QUERY = gql`
 
 const UPDATE_MEETUP_MUTATION = gql`
   mutation UPDATE_MEETUP_MUTATION(
+    $id: ID!
     $title: String
     $description: String
     $location: String
     $date: DateTime
   ) {
     updateMeetup(
+      id: $id
       title: $title
       description: $description
       location: $location
@@ -56,7 +60,9 @@ export default class EditMeetup extends Component {
     this.props.history.push(`/meetup/${res.data.updateMeetup.id}`);
   };
 
-  handleDatePick = date => this.setState({ date });
+  handleDatePick = date => {
+    this.setState({ date: date.toDate() });
+  };
 
   render() {
     return (
@@ -90,7 +96,7 @@ export default class EditMeetup extends Component {
                           name="title"
                           placeholder="Title"
                           className="pa2 input-reset ba bg-transparent w-100 measure"
-                          value={data.meetup.title}
+                          defaultValue={data.meetup.title}
                           onChange={this.handleChange}
                         />
                       </div>
@@ -105,7 +111,7 @@ export default class EditMeetup extends Component {
                           name="description"
                           placeholder="Description..."
                           className="db border-box hover-black w-100 measure ba pa2 br2 mb2"
-                          value={data.meetup.description}
+                          defaultValue={data.meetup.description}
                           onChange={this.handleChange}
                         />
                       </div>
@@ -119,7 +125,7 @@ export default class EditMeetup extends Component {
                           name="location"
                           placeholder="Location"
                           className="pa2 input-reset ba bg-transparent w-100 measure"
-                          value={data.meetup.location}
+                          defaultValue={data.meetup.location}
                           onChange={this.handleChange}
                         />
                       </div>
@@ -127,28 +133,22 @@ export default class EditMeetup extends Component {
                         <label htmlFor="date" className="db fw4 lh-copy f6">
                           Date
                         </label>
-                        <DatetimePickerTrigger
+                        <DateTime
                           name="date"
-                          className="w-100 measure"
-                          moment={moment(data.meetup.date)}
+                          inputProps={{
+                            className:
+                              "pa2 input-reset ba bg-transparent w-100 measure"
+                          }}
+                          defaultValue={moment(data.meetup.date)}
                           onChange={this.handleDatePick}
-                        >
-                          <input
-                            type="text"
-                            className="w-100 measure"
-                            value={moment(data.meetup.date).format(
-                              "YYYY-MM-DD HH:mm"
-                            )}
-                            readOnly
-                          />
-                        </DatetimePickerTrigger>
+                        />
                       </div>
 
                       <div className="mt3">
                         <input
                           className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
                           type="submit"
-                          value="Edit Meetup"
+                          value="Save Changes"
                         />
                       </div>
                     </fieldset>

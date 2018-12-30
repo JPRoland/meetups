@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { DatetimePickerTrigger } from "rc-datetime-picker";
+import DateTime from "react-datetime";
 import moment from "moment";
 
 const CREATE_MEETUP_MUTATION = gql`
@@ -27,14 +27,16 @@ export default class CreateMeetup extends Component {
     title: "",
     description: "",
     location: "",
-    date: moment()
+    date: moment().toDate()
   };
 
-  saveToState = e => {
+  handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleDatePick = date => this.setState({ date });
+  handleDatePick = date => {
+    this.setState({ date: date.toDate() });
+  };
 
   render() {
     return (
@@ -65,7 +67,7 @@ export default class CreateMeetup extends Component {
                     placeholder="Title"
                     className="pa2 input-reset ba bg-transparent w-100 measure"
                     value={this.state.title}
-                    onChange={this.saveToState}
+                    onChange={this.handleChange}
                   />
                 </div>
                 <div className="mt3">
@@ -77,7 +79,7 @@ export default class CreateMeetup extends Component {
                     placeholder="Description..."
                     className="db border-box hover-black w-100 measure ba pa2 br2 mb2"
                     value={this.state.description}
-                    onChange={this.saveToState}
+                    onChange={this.handleChange}
                   />
                 </div>
 
@@ -91,25 +93,22 @@ export default class CreateMeetup extends Component {
                     placeholder="Location"
                     className="pa2 input-reset ba bg-transparent w-100 measure"
                     value={this.state.location}
-                    onChange={this.saveToState}
+                    onChange={this.handleChange}
                   />
                 </div>
                 <div className="mt3">
                   <label htmlFor="date" className="db fw4 lh-copy f6">
                     Date
                   </label>
-                  <DatetimePickerTrigger
+                  <DateTime
                     name="date"
-                    className="w-100"
-                    moment={this.state.date}
+                    value={this.state.date}
+                    inputProps={{
+                      className:
+                        "pa2 input-reset ba bg-transparent w-100 measure"
+                    }}
                     onChange={this.handleDatePick}
-                  >
-                    <input
-                      type="text"
-                      value={this.state.date.format("YYYY-MM-DD HH:mm")}
-                      readOnly
-                    />
-                  </DatetimePickerTrigger>
+                  />
                 </div>
 
                 <div className="mt3">
