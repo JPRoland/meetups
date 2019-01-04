@@ -5,15 +5,15 @@ import MyMeetups from "./MyMeetups";
 import AttendingMeetups from "./AttendingMeetups";
 import Sidebar from "../Sidebar";
 
-const ENUM = {
-  allMeetups: <AllMeetups />,
-  myMeetups: <MyMeetups />,
-  attendingMeetups: <AttendingMeetups />
+const LISTS = {
+  allMeetups: props => <AllMeetups {...props} />,
+  myMeetups: props => <MyMeetups {...props} />,
+  attendingMeetups: props => <AttendingMeetups {...props} />
 };
 
 export default class MeetupListContainer extends Component {
   state = {
-    meetups: [],
+    page: 1,
     listToDisplay: "allMeetups"
   };
 
@@ -24,7 +24,7 @@ export default class MeetupListContainer extends Component {
   render() {
     return (
       <div className="flex h-100">
-        {ENUM[this.state.listToDisplay]}
+        {LISTS[this.state.listToDisplay]({ page: this.state.page })}
         <Sidebar updateDisplayList={this.updateDisplayList} />
       </div>
     );

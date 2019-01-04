@@ -8,6 +8,7 @@ type Query {
     first: Int
   ): [Meetup]!
   meetup(where: MeetupWhereUniqueInput!): Meetup!
+  meetupsConnection(where: MeetupWhereInput): MeetupConnection!
   me: User
 }
 
