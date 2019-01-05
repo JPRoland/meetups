@@ -1,1 +1,3 @@
-export const perpage = 12;
+const perpage = 4;
+
+export default perpage;

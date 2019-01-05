@@ -28,8 +28,7 @@ const MEETUPS_QUERY = gql`
 export default class AllMeetups extends Component {
   render() {
     return (
-      <div className="w-75">
-        <h1 className="ml3 mb0">All Meetups</h1>
+      <div>
         <Query
           query={MEETUPS_QUERY}
           variables={{ skip: this.props.page * perPage - perPage }}

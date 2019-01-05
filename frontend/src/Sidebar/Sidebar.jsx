@@ -2,8 +2,6 @@ import React from "react";
 
 import "./sidebar.css";
 
-// TODO - import User and conditionally render list selectors
-
 export default props => {
   const lists = [
     {

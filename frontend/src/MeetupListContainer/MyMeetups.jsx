@@ -29,8 +29,7 @@ const MY_MEETUPS_QUERY = gql`
 export default class MyMeetups extends Component {
   render() {
     return (
-      <div className="w-75">
-        <h1 className="ml3 mb0">My Meetups</h1>
+      <div>
         <Query query={MY_MEETUPS_QUERY}>
           {({ data, error, loading }) => {
             if (error) return <p>{error.message}</p>;

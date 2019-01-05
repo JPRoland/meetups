@@ -3,6 +3,7 @@ const { forwardTo } = require("prisma-binding");
 const Query = {
   meetups: forwardTo("db"),
   meetup: forwardTo("db"),
+  meetupsConnection: forwardTo("db"),
   me(parent, args, ctx, info) {
     if (!ctx.request.userId) {
       return null;

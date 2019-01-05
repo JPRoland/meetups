@@ -4,16 +4,17 @@ import AllMeetups from "./AllMeetups";
 import MyMeetups from "./MyMeetups";
 import AttendingMeetups from "./AttendingMeetups";
 import Sidebar from "../Sidebar";
+import withPagination from "../Pagination";
+import User from "../Common/User";
 
 const LISTS = {
-  allMeetups: props => <AllMeetups {...props} />,
-  myMeetups: props => <MyMeetups {...props} />,
-  attendingMeetups: props => <AttendingMeetups {...props} />
+  allMeetups: withPagination("all")(AllMeetups),
+  myMeetups: withPagination("my")(MyMeetups),
+  attendingMeetups: withPagination("attending")(AttendingMeetups)
 };
 
 export default class MeetupListContainer extends Component {
   state = {
-    page: 1,
     listToDisplay: "allMeetups"
   };
 
@@ -22,11 +23,23 @@ export default class MeetupListContainer extends Component {
   };
 
   render() {
+    const ListWithPagination = LISTS[this.state.listToDisplay];
     return (
-      <div className="flex h-100">
-        {LISTS[this.state.listToDisplay]({ page: this.state.page })}
-        <Sidebar updateDisplayList={this.updateDisplayList} />
-      </div>
+      <User>
+        {({ data: { me }, loading, error }) => {
+          if (loading) return <p>Loading...</p>;
+          console.log(me);
+          return (
+            <div className="flex h-100">
+              <ListWithPagination userId={me.id} />
+              <Sidebar
+                updateDisplayList={this.updateDisplayList}
+                userId={me.id}
+              />
+            </div>
+          );
+        }}
+      </User>
     );
   }
 }
