@@ -3,11 +3,13 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import Meetup from "../Meetup";
+import perPage from "../Constants";
 
 const ATTENDING_MEETUPS_QUERY = gql`
-  query {
+  query ATTENDING_MEETUPS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
     me {
-      meetupsAttending {
+      id
+      meetupsAttending(first: $first, skip: $skip, orderBy: createdAt_DESC) {
         id
         title
         description

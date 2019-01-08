@@ -9,7 +9,7 @@ type Query {
   ): [Meetup]!
   meetup(where: MeetupWhereUniqueInput!): Meetup!
   meetupsConnection(where: MeetupWhereInput): MeetupConnection!
-  me: User
+  me: User!
 }
 
 type SuccessMessage {
@@ -45,6 +45,16 @@ type User {
   name: String!
   email: String!
   avatar: String
-  myMeetups: [Meetup!]!
-  meetupsAttending: [Meetup!]!
+  myMeetups(
+    where: MeetupWhereInput
+    orderBy: MeetupOrderByInput
+    skip: Int
+    first: Int
+  ): [Meetup]!
+  meetupsAttending(
+    where: MeetupWhereInput
+    orderBy: MeetupOrderByInput
+    skip: Int
+    first: Int
+  ): [Meetup]!
 }

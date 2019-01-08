@@ -3,11 +3,13 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import Meetup from "../Meetup";
+import perPage from "../Constants";
 
 const MY_MEETUPS_QUERY = gql`
-  query {
+  query MY_MEETUPS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
     me {
-      myMeetups {
+      id
+      myMeetups(first: $first, skip: $skip, orderBy: createdAt_DESC) {
         id
         title
         description
@@ -30,7 +32,10 @@ export default class MyMeetups extends Component {
   render() {
     return (
       <div>
-        <Query query={MY_MEETUPS_QUERY}>
+        <Query
+          query={MY_MEETUPS_QUERY}
+          variables={{ skip: this.props.page * perPage - perPage }}
+        >
           {({ data, error, loading }) => {
             if (error) return <p>{error.message}</p>;
             if (loading) return <p>Loading...</p>;

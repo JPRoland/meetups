@@ -28,7 +28,7 @@ export default class MeetupListContainer extends Component {
       <User>
         {({ data: { me }, loading, error }) => {
           if (loading) return <p>Loading...</p>;
-          console.log(me);
+
           return (
             <div className="flex h-100">
               <ListWithPagination userId={me.id} />

@@ -53,7 +53,6 @@ const Pagination = props => {
         const count = data.meetupsConnection.aggregate.count;
         const pages = Math.ceil(count / perPage);
         const page = props.page;
-        console.log(pages);
 
         return (
           <div className="flex items-center justify-center pt4 pr5 ml-auto">
