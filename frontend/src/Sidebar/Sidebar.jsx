@@ -21,6 +21,10 @@ export default props => {
     }
   ];
 
+  if(!props.userId) {
+    lists.splice(1, 2);
+  }
+
   return (
     <aside className="sidebar mr4 mt4">
       <ul className="list pl0 center ba b--light-silver br2">

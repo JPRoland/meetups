@@ -7,23 +7,26 @@ import Sidebar from "../Sidebar";
 import withPagination from "../Pagination";
 import User from "../Common/User";
 
-const LISTS = {
-  allMeetups: withPagination("all")(AllMeetups),
-  myMeetups: withPagination("my")(MyMeetups),
-  attendingMeetups: withPagination("attending")(AttendingMeetups)
-};
-
 export default class MeetupListContainer extends Component {
   state = {
-    listToDisplay: "allMeetups"
+    listToDisplay: null
+  };
+
+  LISTS = {
+    allMeetups: withPagination("all")(AllMeetups),
+    myMeetups: withPagination("my")(MyMeetups),
+    attendingMeetups: withPagination("attending")(AttendingMeetups)
   };
 
   updateDisplayList = listToDisplay => {
-    this.setState({ listToDisplay });
+    this.setState({ listToDisplay: this.LISTS[listToDisplay] });
   };
 
+  componentDidMount() {
+    this.setState({ listToDisplay: this.LISTS.allMeetups });
+  }
+
   render() {
-    const ListWithPagination = LISTS[this.state.listToDisplay];
     return (
       <User>
         {({ data: { me }, loading, error }) => {
@@ -31,7 +34,9 @@ export default class MeetupListContainer extends Component {
 
           return (
             <div className="flex h-100">
-              <ListWithPagination userId={me.id} />
+              {this.state.listToDisplay && (
+                <this.state.listToDisplay userId={me.id} />
+              )}
               <Sidebar
                 updateDisplayList={this.updateDisplayList}
                 userId={me.id}
