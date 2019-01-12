@@ -35,11 +35,11 @@ export default class MeetupListContainer extends Component {
           return (
             <div className="flex h-100">
               {this.state.listToDisplay && (
-                <this.state.listToDisplay userId={me.id} />
+                <this.state.listToDisplay userId={me ? me.id : null} />
               )}
               <Sidebar
                 updateDisplayList={this.updateDisplayList}
-                userId={me.id}
+                userId={me ? me.id : null}
               />
             </div>
           );

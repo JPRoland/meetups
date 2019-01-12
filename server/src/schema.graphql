@@ -9,7 +9,7 @@ type Query {
   ): [Meetup]!
   meetup(where: MeetupWhereUniqueInput!): Meetup!
   meetupsConnection(where: MeetupWhereInput): MeetupConnection!
-  me: User!
+  me: User
 }
 
 type SuccessMessage {
